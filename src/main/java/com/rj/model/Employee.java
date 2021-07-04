@@ -10,22 +10,30 @@ import java.io.Serializable;
 
 @ToString
 public class Employee implements Serializable {
-    private Integer eId;
-    private String eName;
+    private Integer age;
+    private String name;
 
-    public Integer geteId() {
-        return eId;
+    public Employee() {
     }
 
-    public void seteId(Integer eId) {
-        this.eId = eId;
+    public Employee(Integer age, String name) {
+        this.age = age;
+        this.name = name;
     }
 
-    public String geteName() {
-        return eName;
+    public Integer getAge() {
+        return age;
     }
 
-    public void seteName(String eName) {
-        this.eName = eName;
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

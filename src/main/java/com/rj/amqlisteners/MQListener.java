@@ -1,5 +1,6 @@
 package com.rj.amqlisteners;
 
+import com.rj.model.Employee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class MQListener {
     }
 
     @JmsListener(destination = "MyFirstTopic", containerFactory = "jmsListenerContainerFactoryTopic")
-    public void processTopic(String employee){
+    public void processTopic(Employee employee){
         log.info("Consumer>" + employee);
     }
 

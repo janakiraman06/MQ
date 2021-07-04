@@ -8,6 +8,8 @@ import org.springframework.jms.core.JmsTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.io.UncheckedIOException;
+
 @Component
 @Slf4j
 public class MQService {
@@ -16,20 +18,29 @@ public class MQService {
     JmsTemplate jmsTemplate;
 
     @Autowired
-    JmsTemplate jmsTemplateQueue;
+    JmsTemplate prasad;
 
     public void sendMessage(Employee message, String topicDestination){
         try {
             log.info("Attempting Send message to Topic :" + topicDestination);
             jmsTemplate.convertAndSend(topicDestination, message);
-        }catch (Exception e){
+            System.out.println(jmsTemplate.hashCode());
+            System.out.println(prasad.hashCode());
+        }
+        catch (NullPointerException nullPointerException){
+            throw new RuntimeException("null pointer");
+        }
+        catch (Exception e){
             log.error("Received Exception during send Message:" + e);
+            //RuntimeException runtimeException = new RuntimeException();
+            throw new RuntimeException("generic err");
+
         }
     }
 
 
     public void sendTo(String destination, Student student){
-        jmsTemplateQueue.convertAndSend(destination, student);
+        prasad.convertAndSend(destination, student);
         log.info("Producer> Message Sent");
     }
 }

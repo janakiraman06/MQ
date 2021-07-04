@@ -14,7 +14,14 @@ public class TopicPublisher {
     EmployeeService employeeService;
     @PostMapping(value = "/api/employee")
     public Employee sendMessage(@RequestBody Employee employee){
+        validateEmployee(employee);
         employeeService.sendMessage(employee);
         return employee;
     }
+
+    private void validateEmployee(Employee employee) {
+        if(employee.getName()=="" || employee.getName().length()<=3 || employee.getAge()>60 || employee.getAge()<18)
+            throw new RuntimeException("Invalid employee");
+    }
+
 }

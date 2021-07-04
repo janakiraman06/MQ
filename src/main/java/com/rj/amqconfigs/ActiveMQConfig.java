@@ -14,7 +14,7 @@ import javax.jms.ConnectionFactory;
 
 @Configuration
 public class ActiveMQConfig {
-    @Value("${active-mq.broker-url}")
+    @Value("${spring.activemq.broker-url}")
     private String brokerUrl;
     @Bean
     public ConnectionFactory connectionFactory(){
@@ -28,10 +28,11 @@ public class ActiveMQConfig {
         jmsTemplate.setConnectionFactory(connectionFactory());
         jmsTemplate.setPubSubDomain(true);//enable Pub Sub to topic. Not required for Queue.
         jmsTemplate.setMessageConverter(jacksonJmsMessageConverter());
+        System.out.println("config jmstemplate hash code " + jmsTemplate.hashCode());
         return jmsTemplate;
     }
 
-    @Bean
+    @Bean (name="prasad")
     public JmsTemplate jmsTemplateQueue(){
         JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setConnectionFactory(connectionFactory());
